@@ -11,13 +11,17 @@ import (
 	//"github.com/jinzhu/gorm"
 	//_ "github.com/jinzhu/gorm/dialects/sqlite"
 
+	"github.com/gofiber/fiber/v2/middleware/logger"
 	"gorm.io/driver/sqlserver"
 	"gorm.io/gorm"
+	//"gorm.io/gorm/logger"
 )
 
 func main() {
 	// Create a new fiber instance
 	app := fiber.New()
+
+	app.Use(logger.New())
 
 	// Setup CORS middleware
 	app.Use(cors.New())

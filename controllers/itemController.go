@@ -19,8 +19,20 @@ func GetItems(c *fiber.Ctx) error {
 // CreateItem creates a new item
 func CreateItem(c *fiber.Ctx) error {
 	var item models.Item
+	//fmt.Println(item.Price)
+	//c.SendString(string(item.Price))
+	//item.Price = (item.Price)
+	// var num int
+	//num, err := strconv.Atoi(item.Price)
+	//if err != nil {
+	//fmt.Println("Error:", err)
+	//	return c.Status(400).SendString("Invalid request body: Price")
+	//}
+
+	//item.Price = num
 	if err := c.BodyParser(&item); err != nil {
 		return c.Status(400).SendString("Invalid request body")
+		//return c.Status(400).JSON(item)
 	}
 	if err := c.Locals("db").(*gorm.DB).Create(&item).Error; err != nil {
 		return c.Status(500).SendString("Error creating item")

@@ -6,9 +6,10 @@ import (
 
 // Item represents the data structure for the item.
 type Item struct {
-	ID     uint   `json:"id"`
-	Name   string `json:"name"`
-	Status string `json: status`
+	ID    uint   `json:"id"`
+	Name  string `json:"name"`
+	Price string `json:"price"`
+	//Status string `json: status`
 }
 
 // // Counter represents the data structure for the item.
