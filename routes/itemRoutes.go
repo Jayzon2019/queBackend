@@ -4,6 +4,8 @@ import (
 	"myapp/controllers"
 
 	"github.com/gofiber/fiber/v2"
+	//"github.com/gofiber/websocket"
+	"github.com/gofiber/websocket/v2"
 )
 
 // SetupRoutes defines all the routes for the application.
@@ -38,4 +40,8 @@ func SetupRoutes(app *fiber.App) {
 	api.Post("/que", controllers.CreateTblque)       // Create a new item
 	api.Put("/que/:id", controllers.UpdateTblque)    // Update an existing item
 	api.Delete("/que/:id", controllers.DeleteTblque) // Delete an item
+
+	websocketController := controllers.NewWebSocketController()
+	// Define the WebSocket route
+	app.Get("/ws", websocket.New(websocketController.HandleWebSocketConnection))
 }

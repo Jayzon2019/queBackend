@@ -29,7 +29,7 @@ func main() {
 	// Setup database connection
 	//db, err := gorm.Open("sqlite3", "./gorm.db")
 
-	dsn := "sqlserver://test:test2019@100.96.0.123:1434?database=GOOPENAPI_UAT"
+	dsn := "sqlserver://test:test2019@localhost:1434?database=GOOPENAPI_UAT"
 	db, err := gorm.Open(sqlserver.Open(dsn), &gorm.Config{})
 
 	if err != nil {
