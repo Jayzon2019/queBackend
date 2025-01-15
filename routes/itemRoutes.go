@@ -20,6 +20,8 @@ func SetupRoutes(app *fiber.App) {
 	api.Put("/user/:id", controllers.UpdateTbluser)    // Update an existing item
 	api.Delete("/user/:id", controllers.DeleteTbluser) // Delete an item
 
+	api.Post("/userLogin", controllers.ValidateUser) // Get Login
+
 	api.Get("/counter", controllers.GetTblcounter)           // Get all items
 	api.Post("/counter", controllers.CreateTblcounter)       // Create a new item
 	api.Put("/counter/:id", controllers.UpdateTblcounter)    // Update an existing item

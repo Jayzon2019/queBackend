@@ -49,10 +49,31 @@ func UpdateTbluser(c *fiber.Ctx) error {
 
 // DeleteItem deletes an item by ID
 func DeleteTbluser(c *fiber.Ctx) error {
+
 	id := c.Params("id")
 	if err := c.Locals("db").(*gorm.DB).Delete(&models.Tbluser{}, id).Error; err != nil {
 		return c.Status(500).SendString("Error deleting item")
 	}
 	//return c.SendString("Item deleted successfully")
 	return c.JSON(id)
+}
+
+// ValidateUser checks user credentials in the MSSQL database
+func ValidateUser(c *fiber.Ctx) error {
+	var item models.Tbluser
+
+	if err := c.BodyParser(&item); err != nil {
+		return c.Status(400).SendString("Invalid request body")
+	}
+
+	username := item.Username
+	password := item.Password
+
+	db := c.Locals("db").(*gorm.DB)
+
+	// Correct query format
+	if err := db.Where("username = ? AND password = ?", username, password).First(&item).Error; err != nil {
+		return c.Status(500).SendString("Error fetching items")
+	}
+	return c.JSON(item)
 }
