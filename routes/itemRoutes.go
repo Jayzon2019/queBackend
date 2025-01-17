@@ -41,6 +41,9 @@ func SetupRoutes(app *fiber.App) {
 	api.Put("/que/:id", controllers.UpdateTblque)    // Update an existing item
 	api.Delete("/que/:id", controllers.DeleteTblque) // Delete an item
 
+	app.Get("/video1", controllers.VideoHandler1)
+	app.Get("/video2", controllers.VideoHandler2)
+
 	websocketController := controllers.NewWebSocketController()
 	// Define the WebSocket route
 	app.Get("/ws", websocket.New(websocketController.HandleWebSocketConnection))
