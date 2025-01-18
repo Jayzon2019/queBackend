@@ -47,4 +47,6 @@ func SetupRoutes(app *fiber.App) {
 	websocketController := controllers.NewWebSocketController()
 	// Define the WebSocket route
 	app.Get("/ws", websocket.New(websocketController.HandleWebSocketConnection))
+
+	api.Get("/download/excel", controllers.GenerateExcelFile)
 }
