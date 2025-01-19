@@ -1,7 +1,10 @@
 package controllers
 
 import (
+	"fmt"
 	"myapp/models"
+	"reflect"
+	"strconv"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -63,14 +66,31 @@ func IncrementTbldepartmentNumber(c *fiber.Ctx) error {
 	id := c.Params("id")
 	var item models.Tbldepartment
 
-	if err := c.Locals("db").(*gorm.DB).First(&item, id).Error; err != nil {
-		return c.Status(404).SendString("Item not found")
-	}
 	if err := c.BodyParser(&item); err != nil {
 		return c.Status(400).SendString("Invalid request body")
 	}
+	if err := c.Locals("db").(*gorm.DB).First(&item, id).Error; err != nil {
+		return c.Status(404).SendString("Item not found")
+	}
 
-	item.StartNumber += 1
+	fmt.Println(reflect.TypeOf(item.StartNumber))
+
+	//Convert string to integer
+	num, err := strconv.Atoi(item.StartNumber)
+	//num, err := strconv.ParseInt(string(item.StartNumber), 10, 64)
+	if err != nil {
+		fmt.Println("Error:", err.Error())
+		return err
+	}
+
+	num = num + 1
+
+	fmt.Println(num)
+
+	str := strconv.Itoa(num)
+
+	//item.StartNumber = string(num)
+	item.StartNumber = str
 	item.Timestamp = time.Now()
 
 	if err := c.Locals("db").(*gorm.DB).Save(&item).Error; err != nil {
