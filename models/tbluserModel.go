@@ -1,43 +1,34 @@
 package models
 
-import "time"
+import (
+	"time"
+)
 
 // Item represents the data structure for the item.
 type Tbluser struct {
 	ID        uint      `json:"id"`
-	Name      string    `json:"name"`
-	Username  string    `json:"username"`
-	Email     string    `json:"email"`
-	Role      string    `json:"role"`
-	Password  string    `json:"password"`
-	Status    string    `json:"status"`
-	Timestamp time.Time `json:"timestamp"`
+	Name      string    `gorm:"type:varchar(100);not null;" json:"name" validate:"required"`
+	Username  string    `gorm:"type:varchar(100);not null;" json:"username" validate:"required"`
+	Email     string    `gorm:"type:varchar(100);null;" json:"email"`
+	Role      string    `gorm:"type:varchar(100);null;" json:"role"`
+	Password  string    `gorm:"type:varchar(100);null;" json:"password" `
+	Status    string    `gorm:"type:varchar(50);null;" json:"status"`
+	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP"`
+	Timestamp time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"timestamp"`
+
+	// Name     string `gorm:"type:varchar(100);not null;" json:"name"` // Limit to 100 characters
+	// Email    string `gorm:"type:varchar(100);unique;not null;" json:"email"`
+	// Name  string `json:"name" validate:"required,max=100"`
+	// Email string `json:"email" validate:"required,email"`
 }
 
 type Tbluserlog struct {
-	ID            uint      `json:"id"`
-	Name          string    `json:"name"`
-	Username      string    `json:"username"`
-	Email         string    `json:"email"`
-	Role          string    `json:"role"`
-	Password      string    `json:"password"`
-	Status        string    `json:"status"`
-	Timestamp     time.Time `json:"timestamp"`
-	DeptID        int       `json:"deptid"`
-	SessionDeptID int       `json:"sessiondeptid"`
-}
-
-type Tbluserlogsession struct {
-	ID              uint      `json:"id"`
-	Name            string    `json:"name"`
-	Username        string    `json:"username"`
-	Email           string    `json:"email"`
-	Role            string    `json:"role"`
-	Password        string    `json:"password"`
-	Status          string    `json:"status"`
-	Timestamp       time.Time `json:"timestamp"`
-	DeptID          int       `json:"deptid"`
-	DeptName        string    `json:"deptname"`
-	SessionDeptID   int       `json:"deptid"`
-	SessionDeptName string    `json:"sessiondeptname"`
+	ID               uint      `json:"id"`
+	Username         string    `gorm:"type:varchar(100);not null;" json:"username"`
+	Status           string    `gorm:"type:varchar(100);not null;" json:"status"`
+	SessionDeptID    int       `json:"sessiondeptid"`
+	SessionCounterID int       `json:"sessioncounterid"`
+	CreatedAt        time.Time `gorm:"default:CURRENT_TIMESTAMP"`
+	Timestamp        time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"timestamp"`
+	IsActive         bool      `gorm:"default:true"`
 }

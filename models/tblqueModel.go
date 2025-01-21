@@ -5,10 +5,10 @@ import "time"
 // Item represents the data structure for the item.
 type Tblque struct {
 	ID         uint      `json:"id"`
-	Department string    `json:"department"`
+	Department string    `gorm:"type:varchar(100);not null;" json:"department" validate:"required"`
 	Number     string    `json:"number"`
-	Called     string    `json:"called"` //waiting, serving, served, cancel, noshow
-	Counter    string    `json:"counter"`
+	Called     string    `gorm:"type:varchar(50);null;" json:"called"` //waiting, serving, served, cancel, noshow
+	Counter    string    `gorm:"type:varchar(50);null;" json:"counter"`
 	IssueTime  time.Time `json:"issuetime"`
 	// ServeStartTime time.Time `json:"servestarttime"`
 	// ServeEndTime   time.Time `json:"serveendtime"`
