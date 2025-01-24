@@ -116,6 +116,7 @@ func DeleteTbluser(c *fiber.Ctx) error {
 // ValidateUser checks user credentials in the MSSQL database
 func ValidateUser(c *fiber.Ctx) error {
 	var item models.Tbluser
+	var userlog models.Tbluserlog
 
 	if err := c.BodyParser(&item); err != nil {
 		return c.Status(400).SendString("Invalid request body")
@@ -130,5 +131,16 @@ func ValidateUser(c *fiber.Ctx) error {
 	if err := db.Where("username = ? AND password = ?", username, password).First(&item).Error; err != nil {
 		return c.Status(500).SendString("Error fetching users")
 	}
+	item.Password = "--"
+	userlog.Username = item.Username
+	userlog.Status = item.Status
+	userlog.CreatedAt = item.CreatedAt
+	userlog.Timestamp = item.Timestamp
+	userlog.IsActive = true
+
+	if err := c.Locals("db").(*gorm.DB).Create(&userlog).Error; err != nil {
+		return c.Status(500).SendString("Error creating userlog")
+	}
+
 	return c.JSON(item)
 }
