@@ -91,6 +91,7 @@ func CreateTblque(c *fiber.Ctx) error {
 	//que log
 	itemlog.Number = dept.StartNumber
 	itemlog.DeptName = dept.Name
+	itemlog.QueID = int(item.ID)
 
 	if err := c.Locals("db").(*gorm.DB).Create(&itemlog).Error; err != nil {
 		return c.Status(500).SendString("Error creating item")
@@ -135,6 +136,8 @@ func UpdateTblque(c *fiber.Ctx) error {
 	itemlog.Number = item.Number
 	itemlog.Username = item.Username
 	itemlog.Timestamp = item.Timestamp
+
+	itemlog.DeptName = item.DeptName
 
 	if err := c.Locals("db").(*gorm.DB).Create(&itemlog).Error; err != nil {
 		return c.Status(500).SendString("Error updating quelog")
