@@ -13,7 +13,7 @@ type Tbluser struct {
 	Role      string    `gorm:"type:varchar(100);null;" json:"role"`
 	Password  string    `gorm:"type:varchar(100);null;" json:"password" `
 	Status    string    `gorm:"type:varchar(50);null;" json:"status"`
-	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP"`
+	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP;" json:"createat"`
 	Timestamp time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"timestamp"`
 
 	// Name     string `gorm:"type:varchar(100);not null;" json:"name"` // Limit to 100 characters
@@ -23,12 +23,14 @@ type Tbluser struct {
 }
 
 type Tbluserlog struct {
-	ID               uint      `json:"id"`
-	Username         string    `gorm:"type:varchar(100);not null;" json:"username"`
-	Status           string    `gorm:"type:varchar(100);not null;" json:"status"`
-	SessionDeptID    int       `json:"sessiondeptid"`
-	SessionCounterID int       `json:"sessioncounterid"`
-	CreatedAt        time.Time `gorm:"default:CURRENT_TIMESTAMP"`
-	Timestamp        time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"timestamp"`
-	IsActive         bool      `gorm:"default:true"`
+	ID                 uint      `json:"id"`
+	Username           string    `gorm:"type:varchar(100);not null;" json:"username"`
+	Status             string    `gorm:"type:varchar(100);not null;" json:"status"`
+	SessionDeptID      int       `json:"sessiondeptid"`
+	SessionDeptname    string    `json:"sessiondeptname"`
+	SessionCounterID   int       `json:"sessioncounterid"`
+	SessionCountername string    `json:"sessioncountername"`
+	CreatedAt          time.Time `gorm:"default:CURRENT_TIMESTAMP;" json:"createat"`
+	Timestamp          time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"timestamp"`
+	IsActive           bool      `gorm:"default:true"`
 }

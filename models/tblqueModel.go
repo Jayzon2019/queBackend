@@ -7,7 +7,7 @@ type Tblque struct {
 	ID            uint      `json:"id"`
 	Fullname      string    `gorm:"type:varchar(100);not null;" json:"fullname"`
 	Status        string    `gorm:"type:varchar(100);not null;" json:"status"`
-	CreatedAt     time.Time `gorm:"default:CURRENT_TIMESTAMP"`
+	CreatedAt     time.Time `gorm:"default:CURRENT_TIMESTAMP;" json:"createat"`
 	Timestamp     time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"timestamp"`
 	IsActive      bool      `gorm:"default:true" json:"isactive"`
 	SessionDeptID int       `json:"sessiondeptid"`

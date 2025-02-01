@@ -33,6 +33,8 @@ func CreateTbluserlog(c *fiber.Ctx) error {
 // UpdateItem updates an existing item by ID
 func UpdateTbluserlog(c *fiber.Ctx) error {
 	var item models.Tbluserlog
+	var dept models.Tbldepartment
+	var teller models.Tblcounter
 
 	if err := c.BodyParser(&item); err != nil {
 		return c.Status(400).SendString("Invalid request body")
@@ -49,12 +51,29 @@ func UpdateTbluserlog(c *fiber.Ctx) error {
 		return c.Status(500).SendString("Error fetching userlogs")
 	}
 
-	// if err := c.Locals("db").(*gorm.DB).Save(&item2).Error; err != nil {
-	// 	return c.Status(500).SendString("Error updating item")
-	// }
 	if err := c.BodyParser(&item); err != nil {
 		return c.Status(400).SendString("Invalid request body")
 	}
+
+	//get dept name and counter name
+	if err := c.Locals("db").(*gorm.DB).First(&dept, item.SessionDeptID).Error; err != nil {
+		return c.Status(404).SendString("Item not found")
+	}
+	if err := c.BodyParser(&dept); err != nil {
+		return c.Status(400).SendString("Invalid request body")
+	}
+	item.SessionDeptname = dept.Name
+
+	if err := c.Locals("db").(*gorm.DB).First(&teller, item.SessionCounterID).Error; err != nil {
+		return c.Status(404).SendString("Item not found")
+	}
+	if err := c.BodyParser(&teller); err != nil {
+		return c.Status(400).SendString("Invalid request body")
+	}
+	item.SessionCountername = teller.Name
+	// item.SessionCountername
+	//
+
 	if err := db.Save(&item).Error; err != nil {
 		return c.Status(500).SendString("Error updating user")
 	}

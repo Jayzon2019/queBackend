@@ -31,6 +31,8 @@ func CreateTblque(c *fiber.Ctx) error {
 		return c.Status(400).SendString("Invalid request body")
 	}
 
+	fmt.Println("Fullname: ", item.Fullname)
+	fmt.Println("ID: ", int(item.SessionDeptID))
 	itemlog.QueID = int(item.ID)
 	itemlog.Fullname = item.Fullname
 	itemlog.Status = item.Status
@@ -47,7 +49,7 @@ func CreateTblque(c *fiber.Ctx) error {
 		return c.Status(400).SendString("Invalid request body")
 	}
 
-	fmt.Println("item ssdeptid: ", item.SessionDeptID)
+	fmt.Println("item SessionDeptID: ", item.SessionDeptID)
 	fmt.Println("dept startnumber: ", dept.StartNumber)
 	//Convert string to integer
 	//num, err := strconv.Atoi(dept.StartNumber)
@@ -110,6 +112,7 @@ func UpdateTblque(c *fiber.Ctx) error {
 	if err := c.BodyParser(&item); err != nil {
 		return c.Status(400).SendString("Invalid request body")
 	}
+
 	//get countername
 	if err := c.Locals("db").(*gorm.DB).First(&Tblcounter, item.SessionCounterID).Error; err != nil {
 		return c.Status(404).SendString("Item not found")
