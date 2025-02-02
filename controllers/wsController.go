@@ -54,7 +54,7 @@ func (ws *WebSocketController) HandleWebSocketConnection(c *websocket.Conn) {
 		}
 
 		// Broadcast the message to all connected clients
-		ws.broadcastMessage(msgType, []byte("Ticket number "+message.Content+"proceed to counter 1"))
+		ws.broadcastMessage(msgType, []byte(message.Content))
 	}
 }
 
