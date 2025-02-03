@@ -83,13 +83,16 @@ func CreateTblque(c *fiber.Ctx) error {
 
 	//add que
 	item.DeptName = dept.Name
-	item.Number = dept.StartNumber
+	item.Number = fmt.Sprintf("%04s", dept.StartNumber) //dept.StartNumber
+	item.Number = dept.Letter + item.Number
+
 	if err := c.Locals("db").(*gorm.DB).Create(&item).Error; err != nil {
 		return c.Status(500).SendString("Error creating item")
 	}
 
 	//que log
-	itemlog.Number = dept.StartNumber
+	//itemlog.Number = dept.StartNumber
+	itemlog.Number = item.Number
 	itemlog.DeptName = dept.Name
 	itemlog.QueID = int(item.ID)
 
