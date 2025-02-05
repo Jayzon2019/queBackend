@@ -44,6 +44,10 @@ func SetupRoutes(app *fiber.App) {
 	api.Post("/que", controllers.CreateTblque)       // Create a new item
 	api.Put("/que/:id", controllers.UpdateTblque)    // Update an existing item
 	api.Delete("/que/:id", controllers.DeleteTblque) // Delete an item
+	api.Get("/quetran", controllers.GetTblquebyTran) // Get all items WAITING/CALL
+
+	//20250204 - add queKiosk
+	api.Get("/quekiosk", controllers.GetTblquebyTran) // Get all items by Transaction
 
 	api.Get("/vid/video1", controllers.VideoHandler1)
 	api.Get("/vid/video2", controllers.VideoHandler2)

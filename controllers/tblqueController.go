@@ -12,6 +12,49 @@ import (
 )
 
 // GetItems retrieves all items
+func GetTblquebyTran(c *fiber.Ctx) error {
+	var items []models.Tblque
+
+	// // Append the structs to the slice
+	// people = append(people, person1)
+	// people = append(people, person2)
+
+	// // Print the combined slice of structs
+	// fmt.Println(people)
+
+	//-------// Query distinct names and order by age, limiting the result
+	// var names []string
+	// if err := db.Model(&Person{}).
+	// 	Distinct("Name").
+	// 	Order("Age desc").
+	// 	Limit(3).
+	// 	Pluck("Name", &names).Error; err != nil {
+	// 	fmt.Println("Error querying distinct names:", err)
+	// } else {
+	// 	fmt.Println("Distinct names ordered by age:", names)
+	// }
+
+	// 	if err := db.Raw(`
+	// 		SELECT DISTINCT TOP 3 Name
+	// FROM TBLdepartments
+	// --ORDER BY name DESC
+	// 	`).Scan(&names).Error; err != nil {
+	//     fmt.Println("Error querying distinct names:", err)
+	// } else {
+	//     fmt.Println("Distinct names ordered by age:", names)
+	// }
+
+	db := c.Locals("db").(*gorm.DB)
+	called := "ENGAGED"
+
+	// Correct query format
+	if err := db.Where("CALLED = ?", called).Find(&items).Error; err != nil {
+		return c.Status(500).SendString("Error fetching userlogs")
+	}
+	return c.JSON(items)
+}
+
+// GetItems retrieves all items
 func GetTblque(c *fiber.Ctx) error {
 	var items []models.Tblque
 	if err := c.Locals("db").(*gorm.DB).Find(&items).Error; err != nil {
