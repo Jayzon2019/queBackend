@@ -56,9 +56,14 @@ func SetupRoutes(app *fiber.App) {
 
 	// Upload API endpoint
 	api.Post("/upload", controllers.UploadFile)
+	api.Post("/upload/:username", controllers.UploadFileuser)
 
 	// Serve static files (uploaded images)
 	app.Static("/uploads", "./static/uploads")
+
+	// Download API endpoint
+	api.Get("/getpic/:imagename", controllers.GetFile)
+	api.Get("/download/:imagename", controllers.DownloadFile)
 
 	// Define the WebSocket route
 	app.Get("/ws", websocket.New(websocketController.HandleWebSocketConnection))
