@@ -53,8 +53,16 @@ func SetupRoutes(app *fiber.App) {
 	api.Get("/vid/video2", controllers.VideoHandler2)
 
 	websocketController := controllers.NewWebSocketController()
+
+	// Upload API endpoint
+	api.Post("/upload", controllers.UploadFile)
+
+	// Serve static files (uploaded images)
+	app.Static("/uploads", "./static/uploads")
+
 	// Define the WebSocket route
 	app.Get("/ws", websocket.New(websocketController.HandleWebSocketConnection))
 
 	api.Get("/download/excel", controllers.GenerateExcelFile)
+
 }

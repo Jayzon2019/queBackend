@@ -34,5 +34,6 @@ func InitializeDatabase(db *gorm.DB) {
 	db.AutoMigrate(&Tbluserlog{})
 	db.AutoMigrate(&Tblque{})
 	db.AutoMigrate(&Tblquelog{})
+	db.AutoMigrate(&Image{})
 
 }
