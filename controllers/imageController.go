@@ -3,6 +3,7 @@ package controllers
 import (
 	"fmt"
 	"myapp/models"
+	"os"
 	"path/filepath"
 	"time"
 
@@ -61,7 +62,15 @@ func GetFile(c *fiber.Ctx) error {
 	imageName := c.Params("imageName")
 
 	// Define the path where the images are stored
-	imagePath := "./static/uploads/" + imageName
+	// imagePath := "./static/uploads/" + imageName
+
+	// Assuming the profile pic is in the 'uploads' folder named after the username
+	imagePath := filepath.Join("./static/uploads/", imageName)
+
+	// Check if file exists
+	if _, err := os.Stat(imagePath); os.IsNotExist(err) {
+		return c.Status(404).SendString("Profile picture not found")
+	}
 
 	// Send the image file to the client
 	return c.SendFile(imagePath, true) // false means not inline, so it will trigger download
