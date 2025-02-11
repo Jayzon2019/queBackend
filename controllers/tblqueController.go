@@ -44,11 +44,17 @@ func GetTblquebyTran(c *fiber.Ctx) error {
 	//     fmt.Println("Distinct names ordered by age:", names)
 	// }
 
+	// Get current date (without the time)
+	// currentDate := time.Now().Truncate(24 * time.Hour) // Truncate to midnight of today
+	currentDate := time.Now().Format("2006-01-02")
+
 	db := c.Locals("db").(*gorm.DB)
 	called := "ENGAGED"
 
+	//if err := db.Where("CONVERT(DATE, created_at) = ?", currentDate).Find(&items).Error; err != nil {
 	// Correct query format
-	if err := db.Where("CALLED = ?", called).Find(&items).Error; err != nil {
+	//currentDate := time.Now().Format("2006-01-02")
+	if err := db.Where("CALLED = ? AND CONVERT(DATE, created_at) = ?", called, currentDate).Find(&items).Error; err != nil {
 		return c.Status(500).SendString("Error fetching userlogs")
 	}
 	return c.JSON(items)
@@ -57,9 +63,35 @@ func GetTblquebyTran(c *fiber.Ctx) error {
 // GetItems retrieves all items
 func GetTblque(c *fiber.Ctx) error {
 	var items []models.Tblque
-	if err := c.Locals("db").(*gorm.DB).Find(&items).Error; err != nil {
+
+	// Get current date (without the time)
+	// currentDate := time.Now().Truncate(24 * time.Hour) // Truncate to midnight of today
+	currentDate := time.Now().Format("2006-01-02")
+	// currentDate := time.Now().Truncate(24 * time.Hour) // Truncate to midnight of today
+
+	db := c.Locals("db").(*gorm.DB)
+	// called := "WAITING"
+
+	fmt.Println("CurrentDate:", currentDate)
+	// if err := db.Raw(`
+	// 		SELECT *
+	// 			FROM TBLques
+	// 			ORDER BY id DESC
+	// 	`).Scan(&names).Error; err != nil {
+	//     fmt.Println("Error querying distinct names:", err)
+	// } else {
+	//     fmt.Println("Distinct names ordered by age:", names)
+	// }
+
+	// Query to filter by current date
+	if err := db.Where("CONVERT(DATE, created_at) = ?", currentDate).Find(&items).Error; err != nil {
 		return c.Status(500).SendString("Error fetching items")
 	}
+
+	// if err := c.Locals("db").(*gorm.DB).Find(&items).Error; err != nil {
+	// 	return c.Status(500).SendString("Error fetching items")
+	// }
+
 	return c.JSON(items)
 }
 
