@@ -70,4 +70,11 @@ func SetupRoutes(app *fiber.App) {
 
 	api.Get("/download/excel", controllers.GenerateExcelFile)
 
+	//20250211
+	api.Get("/menus", controllers.GetTblmenus)         // Get all items
+	api.Get("/menus/:id", controllers.GetTblmenu)      // Get all items
+	api.Post("/menu", controllers.CreateMenu)          // Create a new item
+	api.Put("/menu/:id", controllers.UpdateTblmenu)    // Update an existing item
+	api.Delete("/menu/:id", controllers.DeleteTblmenu) // Delete an item
+
 }
