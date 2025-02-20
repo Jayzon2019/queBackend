@@ -15,35 +15,6 @@ import (
 func GetTblquebyTran(c *fiber.Ctx) error {
 	var items []models.Tblque
 
-	// // Append the structs to the slice
-	// people = append(people, person1)
-	// people = append(people, person2)
-
-	// // Print the combined slice of structs
-	// fmt.Println(people)
-
-	//-------// Query distinct names and order by age, limiting the result
-	// var names []string
-	// if err := db.Model(&Person{}).
-	// 	Distinct("Name").
-	// 	Order("Age desc").
-	// 	Limit(3).
-	// 	Pluck("Name", &names).Error; err != nil {
-	// 	fmt.Println("Error querying distinct names:", err)
-	// } else {
-	// 	fmt.Println("Distinct names ordered by age:", names)
-	// }
-
-	// 	if err := db.Raw(`
-	// 		SELECT DISTINCT TOP 3 Name
-	// FROM TBLdepartments
-	// --ORDER BY name DESC
-	// 	`).Scan(&names).Error; err != nil {
-	//     fmt.Println("Error querying distinct names:", err)
-	// } else {
-	//     fmt.Println("Distinct names ordered by age:", names)
-	// }
-
 	// Get current date (without the time)
 	// currentDate := time.Now().Truncate(24 * time.Hour) // Truncate to midnight of today
 	currentDate := time.Now().Format("2006-01-02")

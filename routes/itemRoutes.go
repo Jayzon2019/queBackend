@@ -77,4 +77,9 @@ func SetupRoutes(app *fiber.App) {
 	api.Put("/menu/:id", controllers.UpdateTblmenu)    // Update an existing item
 	api.Delete("/menu/:id", controllers.DeleteTblmenu) // Delete an item
 
+	api.Get("/dashboard", controllers.GetTblquebyTimeStamp)           // Get all items
+	api.Get("/dashboard/user", controllers.GetTblqueUserReport)       // Get all items
+	api.Get("/dashboard/quelist", controllers.GetTblqueQueList)       // Get all items
+	api.Get("/dashboard/monthly", controllers.GetTblqueMonthlyReport) // Get all items
+
 }
