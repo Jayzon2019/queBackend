@@ -7,6 +7,7 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	fiberSwagger "github.com/swaggo/fiber-swagger"
 
 	//"github.com/jinzhu/gorm"
 	//_ "github.com/jinzhu/gorm/dialects/sqlite"
@@ -20,6 +21,9 @@ import (
 func main() {
 	// Create a new fiber instance
 	app := fiber.New()
+
+	// Serve Swagger UI
+	app.Get("/swagger/*", fiberSwagger.WrapHandler)
 
 	app.Use(logger.New())
 

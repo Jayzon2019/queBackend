@@ -4,12 +4,14 @@ import (
 	"myapp/controllers"
 
 	"github.com/gofiber/fiber/v2"
+
 	//"github.com/gofiber/websocket"
 	"github.com/gofiber/websocket/v2"
 )
 
 // SetupRoutes defines all the routes for the application.
 func SetupRoutes(app *fiber.App) {
+
 	api := app.Group("/api")
 
 	api.Get("/items", controllers.GetItems)          // Get all items
