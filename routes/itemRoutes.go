@@ -84,4 +84,7 @@ func SetupRoutes(app *fiber.App) {
 	api.Get("/dashboard/quelist", controllers.GetTblqueQueList)       // Get all items
 	api.Get("/dashboard/monthly", controllers.GetTblqueMonthlyReport) // Get all items
 
+	api.Get("/dashboard/excel", controllers.GenerateExcelFile)                // Get all items
+	api.Get("/dashboard/exceluserreport", controllers.GenUserReportExcelFile) // Get all items
+
 }
