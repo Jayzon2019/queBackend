@@ -1,0 +1,22 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/dashboard/GetTblqueMonthlyReport": {
+            "get": {
+                "description": "display username, number, department, counter, called date, issued time, called time filter by start and end date and department id",
+                "tags": [
+                    "[]models.Tblquelog"
+                ],
+                "summary": "GetTblqueMonthlyReport",
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -46,6 +46,8 @@ func main() {
 	// Setup routes
 	routes.SetupRoutes(app)
 
+	// swag.Init()
+
 	// Start server
 	log.Fatal(app.Listen(":3000"))
 }

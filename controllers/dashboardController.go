@@ -4,10 +4,18 @@ import (
 	"fmt"
 	"myapp/models"
 
+	_ "myapp/docs" // This imports the generated swagger documentation
+
 	"github.com/gofiber/fiber/v2"
+	// "github.com/swaggo/fiber-swagger"
 	"gorm.io/gorm"
 )
 
+// @Summary  GetTblqueMonthlyReport
+// @Description display username, number, department, counter, called date, issued time, called time filter by start and end date and department id
+// @Tags []models.Tblquelog
+// @Success 201
+// @Router /dashboard/GetTblqueMonthlyReport [Get]
 // 20250220 - display username, number, department, counter, called date, issued time, called time filter by start and end date and department id
 func GetTblqueMonthlyReport(c *fiber.Ctx) error {
 	var items models.Dashboard
